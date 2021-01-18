@@ -1,0 +1,46 @@
+spring:
+  # DB 정보 setting
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Drive
+    url: jdbc/mariadb://localhost/mysql
+    username: DEMOUSER2
+    password: 6583
+    
+  jpa:
+  
+    # true  : 영속성 컨텍스트가 Transaction 범위를 넘어선 레이어까지 살아있음
+    #         (사용자에게 응답 또는 view가 랜더링 될 때 까지 영속성 컨텍스트를 유지한다)
+    # false : Transaction을 종료할 때 영속성 컨텍스트 또한 닫힌다
+    open-in-view: false
+    
+    hibernate:
+      # create : 서버 시작마다 DB를 초기화 한다
+      # update : 수정사항만 DB에 반영한다
+      # non    : DB에 아무런 반영을 하지 않는다
+      ddl-auto: none
+      
+      naming:
+        # 엔티티를 만들 때 변수명 그대로 DB에 필드를 만들어 준다
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        
+      # 시퀀스를 어떤 식으로 사용할지 방식을 결정하는 것
+      # false : jpa가 사용하는 기본 넘버링 전략을 따라가지 않음
+      # true  : 기본 넘버링 전략을 따라감
+      use-new-id-generator-mappings: false
+      
+    # 콘솔에서 쿼리문 보이도록 설정
+    show-sql: true
+    
+    properties:
+      hibernate:
+      
+        # 쿼리를 정렬하여 보여준다
+        format-sql: true
+        
+        # 추가적인 주석 표시
+        use-sql-comment: true
+
+# server 정보 setting
+server:
+  port: 8080
+

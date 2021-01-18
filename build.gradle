@@ -18,21 +18,39 @@ repositories {
 	mavenCentral()
 }
 
+/* 의존성 주입 */
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-	compileOnly 'org.projectlombok:lombok'
+//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	
+	compileOnly 'org.projectlombok:lombok'
+	
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+	
+	/* 스프링부트 스타터 'spring-boot-starter-test'는 junit4에 대한 의존성을 가지고 있으므로 
+	   junit4 의존성을 제외하고 junit5 의존성을 주입하여 사용한다.	
+	 */
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude module : 'junit'	//junit4 의존성 제외
+	}	
+	/* junit5 DI */
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+//	testImplementation 'org.springframework.security:spring-security-test'	
+
+	testCompileOnly 'org.junit.jupiter:junit-jupiter-params:5.2.0'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+	testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.1.0'
+	
 }
 
 test {
